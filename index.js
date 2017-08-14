@@ -30,7 +30,7 @@ exports.createPagination = function (pagination, options) {
                 queryParams += key+"="+pagination.queryParams[key]+"&";
             }
         }
-        var lastCharacterOfQueryParams = queryParams.substr(queryParams.length-1,1);
+        var lastCharacterOfQueryParams = queryParams.substring(queryParams.length,-1);
 
         if(lastCharacterOfQueryParams === "&"){
             //trim off last & character
@@ -44,11 +44,11 @@ exports.createPagination = function (pagination, options) {
     // ========= Previous Button ===============
     if (page === 1) {
         n = 1;
-        template = template + '<li class="disabled"><a href="#">'+ leftText +'</a></li>';
+        template = template + '<li class="disabled page-item"><a class="page-link" href="?page=' + n + queryParams + '">'+ leftText +'</a></li>';
     }
     else {
         n = page - 1;
-        template = template + '<li><a href="?page=' + n + queryParams + '">'+ leftText +'</a></li>';
+        template = template + '<li class="page-item"><a class="page-link" href="?page=' + n + queryParams + '">'+ leftText +'</a></li>';
     }
 
     // ========= Page Numbers Middle ======
@@ -67,23 +67,23 @@ exports.createPagination = function (pagination, options) {
     while (i < limit && i < pageCount) {
         n = start;
         if (start === page) {
-            template = template + '<li class="active"><a href="?page=' + n + queryParams + '">' + n + '</a></li>';
+            template = template + '<li class="active page-item"><a class="page-link" href="?page=' + n + queryParams + '">' + n + '</a></li>';
         } else {
-            template = template + '<li><a href="?page=' + n + queryParams + '">' + n + '</a></li>';
+            template = template + '<li class="page-item"><a class="page-link" href="?page=' + n + queryParams + '">' + n + '</a></li>';
         }
 
         start++;
         i++;
     }
 
-    // ========== Next Button ===========
-    if (page === pageCount || pageCount === 0) {
+// ========== Next Buton ===========
+    if (page === pageCount) {
         n = pageCount;
-        template = template + '<li class="disabled"><a href="#">'+ rightText +'</i></a></li>';
+        template = template + '<li class="disabled page-item"><a class="page-link" href="?page=' + n + queryParams + '">'+ rightText +'</i></a></li>';
     }
     else {
         n = page + 1;
-        template = template + '<li><a href="?page=' + n + queryParams + '">'+ rightText +'</a></li>';
+        template = template + '<li class="page-item"><a class="page-link" href="?page=' + n + queryParams + '">'+ rightText +'</a></li>';
     }
     template = template + '</ul>';
     return template;
